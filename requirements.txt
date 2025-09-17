@@ -1,0 +1,3 @@
+# Python requirements for MathDrop project
+# math is part of the Python standard library and does not need to be listed
+Pillow
