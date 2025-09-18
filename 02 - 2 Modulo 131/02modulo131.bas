@@ -1,0 +1,42 @@
+10 REM 2 Modulo 131 Visualization for Laser 310
+15 MODE(1)
+16 COLOR 2
+20 WIDTH = 128
+30 HEIGHT = 64
+40 CX = WIDTH / 2
+50 CY = HEIGHT / 2
+60 R = 60
+70 N = 131
+80 TABLE = 2
+
+90 REM Draw circle (approximate with points)
+100 FOR I = 0 TO 360 STEP 5
+110   X = INT(CX + R * SIN(I * 3.1416 / 180))
+120   Y = INT(CY - R * COS(I * 3.1416 / 180))
+130   IF X >= 0 AND X < 128 AND Y >= 0 AND Y < 64 THEN SET(X,Y)
+140 NEXT I
+
+150 REM Draw lines
+160 FOR I = 0 TO N - 1
+170   ALPHA = 2 * 3.1416 * I / N
+180   X1 = INT(CX + R * SIN(ALPHA))
+190   Y1 = INT(CY - R * COS(ALPHA))
+200   X2 = INT(CX + R * SIN(TABLE * ALPHA))
+210   Y2 = INT(CY - R * COS(TABLE * ALPHA))
+215   DX = X2 - X1
+216   DY = Y2 - Y1
+217   D2 = DX*DX + DY*DY
+218   D = SQR(D2)
+219   NBPTS = INT(D)
+220   IF NBPTS < 1 THEN NBPTS = 1
+221   FOR S = 0 TO NBPTS
+222     XX = INT(X1 + S * DX / NBPTS)
+223     YY = INT(Y1 + S * DY / NBPTS)
+224     OK = 0
+225     IF XX >= 0 AND XX < 128 THEN OK = 1
+226     IF YY < 0 OR YY >= 64 THEN OK = 0
+227     IF OK = 1 THEN SET(XX,YY)
+228   NEXT S
+230 NEXT I
+235 A$ = INKEY$ : IF A$ <> "E" THEN 235
+240 END
