@@ -1,6 +1,7 @@
 # https://www.youtube.com/watch?v=BCR7IhRFNDo
 import math
 from PIL import Image, ImageDraw
+from pathlib import Path
 
 width  = 1748
 height = 1240
@@ -33,4 +34,14 @@ def length(A,B):
 
 arbre(A0,B0,200)
 
+def find_project_root(start_path: Path, marker: str = "requirements.txt") -> Path:
+    for parent in [start_path] + list(start_path.parents):
+        if (parent / marker).exists():
+            return parent
+    raise FileNotFoundError(f"Could not find project root containing {marker}")
+
+project_root = find_project_root(Path(__file__).resolve())
+picture_path = project_root / "pictures" / "pytha.png"
+
+pytha.save(str(picture_path))
 pytha.show()

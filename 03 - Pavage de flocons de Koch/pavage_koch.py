@@ -1,6 +1,7 @@
 # https://www.youtube.com/watch?v=vBh-S9u4utY
 import math
 from PIL import Image, ImageDraw
+from pathlib import Path
 
 width  = 1748
 height = 1240
@@ -34,4 +35,14 @@ for i in range(3):
         B0 = [1748/2-L/2+L*(i-1),height/2+L*math.sqrt(3)/6+L*2/3*math.sqrt(3)*(j-1)+L/3*math.sqrt(3)*(i-1)]
         flocon(A0,B0)
 
+def find_project_root(start_path: Path, marker: str = "requirements.txt") -> Path:
+    for parent in [start_path] + list(start_path.parents):
+        if (parent / marker).exists():
+            return parent
+    raise FileNotFoundError(f"Could not find project root containing {marker}")
+
+project_root = find_project_root(Path(__file__).resolve())
+picture_path = project_root / "pictures" / "pavage_koch.png"
+
+vonkoch.save(str(picture_path))
 vonkoch.show()
