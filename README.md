@@ -25,7 +25,7 @@ Navigate to the desired example folder and run the corresponding Python script. 
 
 ```bash
 cd "04 - Pythagore"
-python pythahore.py
+launch.sh
 ```
 
 Feel free to explore each folder for code and visualizations!
