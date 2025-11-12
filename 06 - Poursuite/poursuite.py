@@ -9,11 +9,11 @@ height = 1240
 poursuite = Image.new("RGB", (width, height), (255, 255, 255))
 draw = ImageDraw.Draw(poursuite)
 
-A = [100, 100]
-B = [1000, 100]
-C = [500, 800]
-
-poly = [A, B, C]
+A = [ 100,  100]
+B = [ 100, 1100]
+C = [1100, 1100]
+D = [1100,  100]
+poly = [A, B, C, D]
 
 def avance(P, Q, d):
     dist = math.sqrt((Q[0] - P[0])**2 + (Q[1] - P[1])**2)
@@ -28,12 +28,12 @@ def trace_poly(poly):
         Q = poly[(i+1) % len(poly)]
         draw.line((P[0], P[1], Q[0], Q[1]), fill=(0, 0, 0), width=2)
 
-for k in range(20):
+for k in range(200):
     trace_poly(poly)
     P0 = poly[0]
     for i in range(len(poly)-1):
-        poly[i] = avance(poly[i], poly[i+1], 50)
-    poly[len(poly)-1] = avance(poly[len(poly)-1], P0, 50)
+        poly[i] = avance(poly[i], poly[i+1], math.dist(poly[i], poly[i+1]) / 10)
+    poly[len(poly)-1] = avance(poly[len(poly)-1], P0, math.dist(poly[len(poly)-1], P0) / 10)
 
 
 def find_project_root(start_path: Path, marker: str = "requirements.txt") -> Path:
